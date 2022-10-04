@@ -1,0 +1,126 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/quocmai/Uni/COS20007/BattleOfTanks/NUnitTest/NUnitTest.csproj": {}
+  },
+  "projects": {
+    "/Users/quocmai/Uni/COS20007/BattleOfTanks/BattleOfTanks/BattleOfTanks.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/quocmai/Uni/COS20007/BattleOfTanks/BattleOfTanks/BattleOfTanks.csproj",
+        "projectName": "BattleOfTanks",
+        "projectPath": "/Users/quocmai/Uni/COS20007/BattleOfTanks/BattleOfTanks/BattleOfTanks.csproj",
+        "packagesPath": "/Users/quocmai/.nuget/packages/",
+        "outputPath": "/Users/quocmai/Uni/COS20007/BattleOfTanks/BattleOfTanks/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/quocmai/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/3.1.422/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/quocmai/Uni/COS20007/BattleOfTanks/NUnitTest/NUnitTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/quocmai/Uni/COS20007/BattleOfTanks/NUnitTest/NUnitTest.csproj",
+        "projectName": "NUnitTest",
+        "projectPath": "/Users/quocmai/Uni/COS20007/BattleOfTanks/NUnitTest/NUnitTest.csproj",
+        "packagesPath": "/Users/quocmai/.nuget/packages/",
+        "outputPath": "/Users/quocmai/Uni/COS20007/BattleOfTanks/NUnitTest/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/quocmai/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "/Users/quocmai/Uni/COS20007/BattleOfTanks/BattleOfTanks/BattleOfTanks.csproj": {
+                "projectPath": "/Users/quocmai/Uni/COS20007/BattleOfTanks/BattleOfTanks/BattleOfTanks.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[3.16.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/3.1.422/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
