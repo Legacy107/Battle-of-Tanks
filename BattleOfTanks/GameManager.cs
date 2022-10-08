@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using SplashKitSDK;
 
 namespace BattleOfTanks
@@ -11,6 +10,7 @@ namespace BattleOfTanks
         private double _prevTime; // for calculating delta time
         private Tank _playerTank;
         private List<Tank> _enemyTanks;
+        private List<Bullet> _bullets;
 
         public GameManager(Window window)
         {
@@ -22,6 +22,7 @@ namespace BattleOfTanks
 
             _playerTank = new Tank(100, 100);
             _enemyTanks = new List<Tank>();
+            _bullets = new List<Bullet>();
         }
 
         // return true on exit command
@@ -32,7 +33,7 @@ namespace BattleOfTanks
             if (SplashKit.KeyTyped(KeyCode.EscapeKey) || SplashKit.QuitRequested())
                 return true;
 
-            const double moveForce = 7000;
+            const double moveForce = 10000;
             if (SplashKit.KeyDown(KeyCode.DownKey))
                 _playerTank.ApplyForce(SplashKit.VectorTo(0, moveForce));
             if (SplashKit.KeyDown(KeyCode.UpKey))
@@ -47,6 +48,9 @@ namespace BattleOfTanks
             if (SplashKit.KeyDown(KeyCode.SKey))
                 _playerTank.MoveBackward(moveForce);
 
+            if (SplashKit.MouseClicked(MouseButton.LeftButton))
+                _bullets.AddRange(_playerTank.Shoot(SplashKit.MousePosition()));
+
             _playerTank.RotateToPoint(SplashKit.MousePosition());
 
             return false;
@@ -59,13 +63,21 @@ namespace BattleOfTanks
             _prevTime = curTime;
 
             _playerTank.Update(delta);
+
+            foreach (Bullet bullet in _bullets)
+                bullet.Update(delta);
         }
 
         public void Draw()
         {
             SplashKit.ClearScreen(Color.White);
+
             _playerTank.Draw(_window);
+            foreach (Bullet bullet in _bullets)
+                bullet.Draw(_window);
+
             SplashKit.DrawText("Speed: " + SplashKit.VectorMagnitude(_playerTank.Velo), Color.Black, 10, 10);
+            SplashKit.DrawText("Angle: " + _playerTank.RotationAngle, Color.Black, 10, 20);
 
             SplashKit.RefreshScreen(60);
         }

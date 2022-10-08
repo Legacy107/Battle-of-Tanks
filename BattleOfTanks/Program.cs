@@ -1,5 +1,4 @@
-﻿using System;
-using SplashKitSDK;
+﻿using SplashKitSDK;
 
 namespace BattleOfTanks
 {
@@ -8,6 +7,7 @@ namespace BattleOfTanks
         public static void LoadResources()
         {
             SplashKit.LoadBitmap("Tank", "assets/tank_green.png");
+            SplashKit.LoadBitmap("Bullet", "assets/bulletDark2_outline.png");
         }
 
         public static void Main()

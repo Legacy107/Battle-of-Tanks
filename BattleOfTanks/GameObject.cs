@@ -1,5 +1,4 @@
-﻿using System;
-using SplashKitSDK;
+﻿using SplashKitSDK;
 
 namespace BattleOfTanks
 {
@@ -12,7 +11,15 @@ namespace BattleOfTanks
         public GameObject(string sprite, double x, double y, double angle)
         {
             _sprite = sprite;
-            _rectangle = SplashKit.BitmapNamed(_sprite).BoundingRectangle();
+            _rectangle = SplashKit.BitmapNamed(_sprite).BoundingRectangle(x, y);
+            // Translate bounding box so that its center is at the coordinate
+            SplashKit.RectangleOffsetBy(
+                _rectangle,
+                SplashKit.VectorPointToPoint(
+                    SplashKit.RectangleCenter(_rectangle),
+                    SplashKit.PointAt(x, y)
+                )
+            );
             _rotationAngle = angle;
         }
 
@@ -37,12 +44,12 @@ namespace BattleOfTanks
         {
             get
             {
-                return SplashKit.PointAt(_rectangle.X, _rectangle.Y);
+                return SplashKit.RectangleCenter(_rectangle);
             }
             set
             {
-                _rectangle.X = value.X;
-                _rectangle.Y = value.Y;
+                _rectangle.X = value.X - _rectangle.Width / 2.0;
+                _rectangle.Y = value.Y - _rectangle.Height / 2.0;
             }
         }
 

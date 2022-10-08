@@ -1,5 +1,4 @@
-﻿using System;
-using SplashKitSDK;
+﻿using SplashKitSDK;
 
 namespace BattleOfTanks
 {
@@ -53,7 +52,9 @@ namespace BattleOfTanks
 
         public void RotateToPoint(Point2D point)
         {
-            RotationAngle = SplashKit.VectorAngle(SplashKit.VectorFromPointToRect(point, BoundingBox));
+            RotationAngle = SplashKit.VectorAngle(SplashKit.VectorInvert(
+                SplashKit.VectorFromPointToRect(point, BoundingBox))
+            );
         }
 
         public bool IsCollided(GameObject obj)
@@ -66,6 +67,10 @@ namespace BattleOfTanks
             get
             {
                 return _velo;
+            }
+            set
+            {
+                _velo = SplashKit.VectorLimit(value, _maxSpeed);
             }
         }
 

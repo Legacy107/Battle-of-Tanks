@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SplashKitSDK;
 
 namespace BattleOfTanks
@@ -12,15 +13,14 @@ namespace BattleOfTanks
         public Tank(double x, double y, double health = 100, double shield = 0)
             : base("Tank", x, y, 0, 80, 50, 200)
         {
-            _weapon = new Weapon();
+            _weapon = new Cannon();
             _health = health;
             _shield = shield;
         }
 
         public void MoveForward(double force)
         {
-            // +180 because the cordinate plane for vector and bitmap is different
-            ApplyForce(SplashKit.VectorFromAngle(RotationAngle + 180, force));
+            ApplyForce(SplashKit.VectorFromAngle(RotationAngle, force));
         }
 
         public void MoveBackward(double force)
@@ -28,9 +28,14 @@ namespace BattleOfTanks
             MoveForward(-force);
         }
 
-        public void Shoot(Point2D target)
+        public List<Bullet> Shoot(Point2D target)
         {
-            _weapon.Shoot(SplashKit.RectangleCenter(BoundingBox), SplashKit.VectorFromPointToRect(target, BoundingBox));
+            return _weapon.Shoot(
+                SplashKit.RectangleCenter(BoundingBox),
+                SplashKit.VectorInvert(
+                    SplashKit.VectorFromPointToRect(target, BoundingBox)
+                )
+            );
         }
 
         public void TakeDamage(double damage)
