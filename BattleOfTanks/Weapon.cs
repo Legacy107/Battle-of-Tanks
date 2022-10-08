@@ -5,11 +5,11 @@ namespace BattleOfTanks
 {
     public abstract class Weapon
     {
-        private double _damage;
+        public double Damage { get; set; }
 
         public Weapon(double damage)
         {
-            _damage = damage;
+            Damage = damage;
         }
 
         public List<Bullet> Shoot(Point2D anchor, Vector2D direction)
@@ -54,18 +54,6 @@ namespace BattleOfTanks
         }
 
         public abstract List<Bullet> CreateBullet();
-
-        public double Damage
-        {
-            get
-            {
-                return _damage;
-            }
-            set
-            {
-                _damage = value;
-            }
-        }
     }
 }
 

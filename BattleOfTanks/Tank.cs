@@ -6,16 +6,16 @@ namespace BattleOfTanks
 {
     public class Tank: PhysicalObject
     {
-        private Weapon _weapon;
+        public Weapon Weapon { get; set; }
         private double _health;
-        private double _shield;
+        public double Shield { get; set; }
 
         public Tank(double x, double y, double health = 100, double shield = 0)
             : base("Tank", x, y, 0, 80, 50, 200)
         {
-            _weapon = new Cannon();
+            Weapon = new Cannon();
             _health = health;
-            _shield = shield;
+            Shield = shield;
         }
 
         public void MoveForward(double force)
@@ -30,7 +30,7 @@ namespace BattleOfTanks
 
         public List<Bullet> Shoot(Point2D target)
         {
-            return _weapon.Shoot(
+            return Weapon.Shoot(
                 SplashKit.RectangleCenter(BoundingBox),
                 SplashKit.VectorInvert(
                     SplashKit.VectorFromPointToRect(target, BoundingBox)
@@ -40,24 +40,12 @@ namespace BattleOfTanks
 
         public void TakeDamage(double damage)
         {
-            _shield -= damage;
+            Shield -= damage;
             // Carry over damage
-            _health -= Math.Min(_shield, 0);
+            _health -= Math.Min(Shield, 0);
 
-            _shield = Math.Max(_shield, 0);
+            Shield = Math.Max(Shield, 0);
             _health = Math.Max(_health, 0);
-        }
-
-        public Weapon Weapon
-        {
-            get
-            {
-                return _weapon;
-            }
-            set
-            {
-                _weapon = Weapon;
-            }
         }
 
         public double Health
@@ -65,18 +53,6 @@ namespace BattleOfTanks
             get
             {
                 return _health;
-            }
-        }
-
-        public double Shield
-        {
-            get
-            {
-                return _shield;
-            }
-            set
-            {
-                _shield = value;
             }
         }
     }

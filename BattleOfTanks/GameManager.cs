@@ -34,7 +34,7 @@ namespace BattleOfTanks
                 return true;
 
             if (SplashKit.KeyTyped(KeyCode.BackquoteKey))
-                GameConfigSingleton.Instance.Debug = !GameConfigSingleton.Instance.Debug;
+                GameConfig.DEBUG = !GameConfig.DEBUG;
 
             const double moveForce = 10000;
             if (SplashKit.KeyDown(KeyCode.DownKey))
@@ -79,7 +79,7 @@ namespace BattleOfTanks
             foreach (Bullet bullet in _bullets)
                 bullet.Draw(_window);
 
-            if (GameConfigSingleton.Instance.Debug)
+            if (GameConfig.DEBUG)
             {
                 SplashKit.DrawText("Speed: " + SplashKit.VectorMagnitude(_playerTank.Velo), Color.Black, 10, 10);
                 SplashKit.DrawText("Angle: " + _playerTank.RotationAngle, Color.Black, 10, 20);

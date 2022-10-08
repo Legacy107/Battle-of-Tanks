@@ -4,40 +4,40 @@ namespace BattleOfTanks
 {
     public class GameObject
     {
-        string _sprite;
-        Rectangle _rectangle;
-        private double _rotationAngle;
+        public string Sprite { get; set; }
+        Rectangle _boundingBox;
+        public double RotationAngle { get; set; }
 
         public GameObject(string sprite, double x, double y, double angle)
         {
-            _sprite = sprite;
-            _rectangle = SplashKit.BitmapNamed(_sprite).BoundingRectangle(x, y);
+            Sprite = sprite;
+            _boundingBox = SplashKit.BitmapNamed(Sprite).BoundingRectangle(x, y);
             // Translate bounding box so that its center is at the coordinate
             SplashKit.RectangleOffsetBy(
-                _rectangle,
+                _boundingBox,
                 SplashKit.VectorPointToPoint(
-                    SplashKit.RectangleCenter(_rectangle),
+                    SplashKit.RectangleCenter(_boundingBox),
                     SplashKit.PointAt(x, y)
                 )
             );
-            _rotationAngle = angle;
+            RotationAngle = angle;
         }
 
         public void Draw(Window window)
         {
-            if (GameConfigSingleton.Instance.Debug)
-                SplashKit.DrawRectangle(Color.Red, _rectangle);
+            if (GameConfig.DEBUG)
+                SplashKit.DrawRectangle(Color.Red, _boundingBox);
 
-            Bitmap bitmap = SplashKit.BitmapNamed(_sprite);
+            Bitmap bitmap = SplashKit.BitmapNamed(Sprite);
             Point2D bitmapCenter = SplashKit.BitmapCenter(bitmap);
             SplashKit.DrawBitmap(
                 bitmap,
-                _rectangle.X, _rectangle.Y,
+                _boundingBox.X, _boundingBox.Y,
                 new DrawingOptions {
                     Dest = window,
                     ScaleX = 1,
                     ScaleY = 1,
-                    Angle = (float)_rotationAngle,
+                    Angle = (float)RotationAngle,
                 }
             );
         }
@@ -46,12 +46,12 @@ namespace BattleOfTanks
         {
             get
             {
-                return SplashKit.RectangleCenter(_rectangle);
+                return SplashKit.RectangleCenter(_boundingBox);
             }
             set
             {
-                _rectangle.X = value.X - _rectangle.Width / 2.0;
-                _rectangle.Y = value.Y - _rectangle.Height / 2.0;
+                _boundingBox.X = value.X - _boundingBox.Width / 2.0;
+                _boundingBox.Y = value.Y - _boundingBox.Height / 2.0;
             }
         }
 
@@ -59,11 +59,11 @@ namespace BattleOfTanks
         {
             get
             {
-                return _rectangle.Width;
+                return _boundingBox.Width;
             }
             set
             {
-                _rectangle.Width = value;
+                _boundingBox.Width = value;
             }
         }
 
@@ -71,23 +71,11 @@ namespace BattleOfTanks
         {
             get
             {
-                return _rectangle.Height;
+                return _boundingBox.Height;
             }
             set
             {
-                _rectangle.Height = value;
-            }
-        }
-
-        public string Sprite
-        {
-            get
-            {
-                return _sprite;
-            }
-            set
-            {
-                _sprite = value;
+                _boundingBox.Height = value;
             }
         }
 
@@ -95,19 +83,7 @@ namespace BattleOfTanks
         {
             get
             {
-                return _rectangle;
-            }
-        }
-
-        public double RotationAngle
-        {
-            get
-            {
-                return _rotationAngle;
-            }
-            set
-            {
-                _rotationAngle = value;
+                return _boundingBox;
             }
         }
     }
