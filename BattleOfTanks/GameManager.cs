@@ -33,6 +33,9 @@ namespace BattleOfTanks
             if (SplashKit.KeyTyped(KeyCode.EscapeKey) || SplashKit.QuitRequested())
                 return true;
 
+            if (SplashKit.KeyTyped(KeyCode.BackquoteKey))
+                GameConfigSingleton.Instance.Debug = !GameConfigSingleton.Instance.Debug;
+
             const double moveForce = 10000;
             if (SplashKit.KeyDown(KeyCode.DownKey))
                 _playerTank.ApplyForce(SplashKit.VectorTo(0, moveForce));
@@ -76,8 +79,11 @@ namespace BattleOfTanks
             foreach (Bullet bullet in _bullets)
                 bullet.Draw(_window);
 
-            SplashKit.DrawText("Speed: " + SplashKit.VectorMagnitude(_playerTank.Velo), Color.Black, 10, 10);
-            SplashKit.DrawText("Angle: " + _playerTank.RotationAngle, Color.Black, 10, 20);
+            if (GameConfigSingleton.Instance.Debug)
+            {
+                SplashKit.DrawText("Speed: " + SplashKit.VectorMagnitude(_playerTank.Velo), Color.Black, 10, 10);
+                SplashKit.DrawText("Angle: " + _playerTank.RotationAngle, Color.Black, 10, 20);
+            }
 
             SplashKit.RefreshScreen(60);
         }

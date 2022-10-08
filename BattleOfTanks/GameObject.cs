@@ -25,7 +25,9 @@ namespace BattleOfTanks
 
         public void Draw(Window window)
         {
-            SplashKit.DrawRectangle(Color.Red, _rectangle);
+            if (GameConfigSingleton.Instance.Debug)
+                SplashKit.DrawRectangle(Color.Red, _rectangle);
+
             Bitmap bitmap = SplashKit.BitmapNamed(_sprite);
             Point2D bitmapCenter = SplashKit.BitmapCenter(bitmap);
             SplashKit.DrawBitmap(
