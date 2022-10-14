@@ -93,8 +93,7 @@ namespace BattleOfTanks
         {
             foreach (IMapTile mapTile in _tiles)
             {
-                GameObject? tileObject = mapTile as GameObject;
-                if (tileObject != null)
+                if (mapTile is GameObject tileObject)
                     obj.IsCollided(tileObject);
 
                 mapTile.ObjectCollision(obj);

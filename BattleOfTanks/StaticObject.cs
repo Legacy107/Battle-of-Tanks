@@ -14,8 +14,7 @@ namespace BattleOfTanks
             bool collided = SplashKit.RectanglesIntersect(BoundingBox, obj.BoundingBox);
             if (collided)
             {
-                PhysicalObject? physicalObject = obj as PhysicalObject;
-                if (physicalObject != null)
+                if (obj is PhysicalObject physicalObject)
                 {
                     physicalObject.Location = SplashKit.PointOffsetBy(
                         physicalObject.Location,
