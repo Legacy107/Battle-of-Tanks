@@ -12,20 +12,17 @@ namespace BattleOfTanks
         public bool IsCollided(GameObject obj)
         {
             bool collided = SplashKit.RectanglesIntersect(BoundingBox, obj.BoundingBox);
-            if (collided)
+            if (collided && obj is PhysicalObject physicalObject)
             {
-                if (obj is PhysicalObject physicalObject)
-                {
-                    physicalObject.Location = SplashKit.PointOffsetBy(
-                        physicalObject.Location,
-                        SplashKit.VectorOutOfRectFromRect(
-                            physicalObject.BoundingBox,
-                            BoundingBox,
-                            physicalObject.Velo
-                        )
-                    );
-                    physicalObject.Velo = SplashKit.VectorTo(0, 0);
-                }
+                physicalObject.Location = SplashKit.PointOffsetBy(
+                    physicalObject.Location,
+                    SplashKit.VectorOutOfRectFromRect(
+                        physicalObject.BoundingBox,
+                        BoundingBox,
+                        physicalObject.Velo
+                    )
+                );
+                physicalObject.Velo = SplashKit.VectorTo(0, 0);
             }
 
             return collided;
