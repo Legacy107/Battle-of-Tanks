@@ -2,8 +2,13 @@
 {
     public static class GameConfig
     {
+        public static int WINDOW_WIDTH = 812;
+        public static int WINDOW_HEIGHT = 840;
         public static bool DEBUG { get; set; } = false;
         public static double EPS { get; } = 0.00001;
+        public static int TILE_SIZE = 28;
+        public static int MAP_WIDTH = 29;
+        public static string DEFAULT_LEVEL = "level2.txt";
     }
 }
 
