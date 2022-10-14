@@ -7,9 +7,11 @@ namespace BattleOfTanks
         public string Sprite { get; set; }
         Rectangle _boundingBox;
         public double RotationAngle { get; set; }
+        public bool NeedRemoval { get; set; }
 
         public GameObject(string sprite, double x, double y, double angle)
         {
+            NeedRemoval = false;
             Sprite = sprite;
             _boundingBox = SplashKit.BitmapNamed(Sprite).BoundingRectangle(x, y);
             // Translate bounding box so that its center is at the coordinate

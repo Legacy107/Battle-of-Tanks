@@ -13,6 +13,17 @@ namespace BattleOfTanks
             Velo = SplashKit.VectorFromAngle(RotationAngle, speed);
             Offset = SplashKit.VectorTo(offsetX, offsetY);
         }
+
+        public override bool IsCollided(GameObject obj)
+        {
+            bool collided = base.IsCollided(obj);
+
+            // TODO: damagable interface
+            if (collided && !(obj is Area))
+                NeedRemoval = true;
+
+            return collided;
+        }
     }
 }
 

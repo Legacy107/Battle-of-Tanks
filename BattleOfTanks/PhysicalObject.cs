@@ -56,7 +56,7 @@ namespace BattleOfTanks
             );
         }
 
-        public bool IsCollided(GameObject obj)
+        public virtual bool IsCollided(GameObject obj)
         {
             return SplashKit.RectanglesIntersect(BoundingBox, obj.BoundingBox);
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SplashKitSDK;
 
 namespace BattleOfTanks
@@ -11,6 +12,7 @@ namespace BattleOfTanks
         private Tank _playerTank;
         private List<Tank> _enemyTanks;
         private List<Bullet> _bullets;
+        private Map _map;
 
         public GameManager(Window window)
         {
@@ -20,7 +22,9 @@ namespace BattleOfTanks
             SplashKit.StartTimer(_clock);
             _prevTime = 0;
 
-            _playerTank = new Tank(100, 100);
+            _map = new Map();
+
+            _playerTank = new Tank(_map.PlayerSpawn.X, _map.PlayerSpawn.Y);
             _enemyTanks = new List<Tank>();
             _bullets = new List<Bullet>();
         }
@@ -66,14 +70,25 @@ namespace BattleOfTanks
             _prevTime = curTime;
 
             _playerTank.Update(delta);
+            _map.CheckCollision(_playerTank);
 
             foreach (Bullet bullet in _bullets)
+            {
                 bullet.Update(delta);
+                _map.CheckCollision(bullet);
+            }
+
+            // Remove objects
+            foreach (Bullet bullet in _bullets.Reverse<Bullet>())
+                if (bullet.NeedRemoval)
+                    _bullets.Remove(bullet);
         }
 
         public void Draw()
         {
             SplashKit.ClearScreen(Color.White);
+
+            _map.Draw(_window);
 
             _playerTank.Draw(_window);
             foreach (Bullet bullet in _bullets)
