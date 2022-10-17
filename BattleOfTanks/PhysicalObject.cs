@@ -6,20 +6,22 @@ namespace BattleOfTanks
     {
         private Vector2D _velo;
         private Vector2D _accel;
-        private double _maxSpeed;
-        private double _maxAccel;
+        public double MaxSpeed { get; set; }
+        public double _maxAccel;
         public double Mass { get; set; }
         public double Friction { get; set; }
+        public double BaseFriction { get; set; }
 
         public PhysicalObject(string sprite, double x, double y, double angle = 0, double maxSpeed = 10, double maxAccel = 10, double mass = 150, double friction = 1)
             : base(sprite, x, y, angle)
         {
-            _maxSpeed = maxSpeed;
+            MaxSpeed = maxSpeed;
             _maxAccel = maxAccel;
             _velo = SplashKit.VectorTo(0, 0);
             _accel = SplashKit.VectorTo(0, 0);
             Mass = mass;
             Friction = friction;
+            BaseFriction = Friction;
         }
 
         public void Update(double delta)
@@ -28,7 +30,7 @@ namespace BattleOfTanks
             ApplyForce(frictionForce);
 
             _velo = SplashKit.VectorAdd(_velo, SplashKit.VectorMultiply(_accel, delta));
-            _velo = SplashKit.VectorLimit(_velo, _maxSpeed);
+            _velo = SplashKit.VectorLimit(_velo, MaxSpeed);
             if (SplashKit.VectorMagnitude(_velo) < GameConfig.EPS)
                 _velo = SplashKit.VectorTo(0, 0);
 
@@ -69,7 +71,7 @@ namespace BattleOfTanks
             }
             set
             {
-                _velo = SplashKit.VectorLimit(value, _maxSpeed);
+                _velo = SplashKit.VectorLimit(value, MaxSpeed);
             }
         }
 
