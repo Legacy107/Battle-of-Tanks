@@ -3,7 +3,7 @@
 1
 30
 30
-366
+357
 841
 Steel
 842
@@ -62,8 +62,6 @@ Steel
 Steel
 869
 Steel
-841
-Steel
 811
 Steel
 753
@@ -75,8 +73,6 @@ Steel
 550
 Steel
 492
-Steel
-145
 Steel
 144
 Steel
@@ -108,10 +104,6 @@ Steel
 Steel
 434
 Steel
-435
-Steel
-464
-Steel
 521
 Steel
 579
@@ -126,17 +118,7 @@ Steel
 Steel
 840
 Steel
-812
-Steel
-783
-Steel
-667
-Steel
-638
-Steel
 463
-Steel
-87
 Steel
 27
 Steel
@@ -220,8 +202,6 @@ Steel
 Steel
 493
 Steel
-464
-Wall
 435
 Steel
 406
@@ -736,3 +716,5 @@ Wall
 Wall
 745
 Wall
+464
+Steel
