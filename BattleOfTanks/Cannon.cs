@@ -17,7 +17,18 @@ namespace BattleOfTanks
 
         public override List<Bullet> CreateBullet()
         {
-            return new List<Bullet> { new Bullet(22, -6) };
+            DamageEffectBuilder damageEffectBuilder = new DamageEffectBuilder();
+            damageEffectBuilder.AddScalar(Damage);
+
+            return new List<Bullet>
+            {
+                new Bullet
+                (
+                    new List<EffectBuilder> { damageEffectBuilder },
+                    28.25,
+                    -6
+                )
+            };
         }
     }
 }

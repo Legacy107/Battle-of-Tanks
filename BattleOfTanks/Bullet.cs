@@ -1,4 +1,4 @@
-﻿using System.Reflection.Metadata;
+﻿using System.Collections.Generic;
 using SplashKitSDK;
 
 namespace BattleOfTanks
@@ -6,10 +6,19 @@ namespace BattleOfTanks
     public class Bullet: PhysicalObject
     {
         public Vector2D Offset { get; set; }
+        private List<EffectBuilder> _effectBuilders;
 
-        public Bullet(double offsetX, double offsetY, double angle = 0, double speed = 200)
+        public Bullet
+        (
+            List<EffectBuilder> effectBuilders,
+            double offsetX,
+            double offsetY,
+            double angle = 0,
+            double speed = 200
+        )
             : base("Bullet", 0, 0, angle, 200, 500, 50)
         {
+            _effectBuilders = effectBuilders;
             Velo = SplashKit.VectorFromAngle(RotationAngle, speed);
             Offset = SplashKit.VectorTo(offsetX, offsetY);
         }
@@ -18,9 +27,20 @@ namespace BattleOfTanks
         {
             bool collided = base.IsCollided(obj);
 
-            // TODO: damagable interface
-            if (collided && !(obj is Area))
-                NeedRemoval = true;
+            if (collided)
+            {
+                if (!(obj is Area))
+                    NeedRemoval = true;
+
+                if (obj is ICanTakeDamage)
+                    foreach (EffectBuilder effectBuilder in _effectBuilders)
+                    {
+                        effectBuilder.AddSubject(obj);
+                        CommandExecutor.Instance.AddCommand(
+                            effectBuilder.GetEffectCommand()
+                        );
+                    }
+            }
 
             return collided;
         }

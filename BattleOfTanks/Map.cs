@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using ShapeDrawer;
 using SplashKitSDK;
@@ -98,6 +99,13 @@ namespace BattleOfTanks
 
                 mapTile.ObjectCollision(obj);
             }
+        }
+
+        public void CheckRemoval()
+        {
+            foreach (IMapTile mapTile in _tiles.Reverse<IMapTile>())
+                if (mapTile is GameObject tileObject && tileObject.NeedRemoval)
+                    _tiles.Remove(mapTile);
         }
 
         public Point2D PlayerSpawn
