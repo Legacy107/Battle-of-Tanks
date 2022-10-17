@@ -10,7 +10,6 @@ namespace BattleOfTanks
         public double _maxAccel;
         public double Mass { get; set; }
         public double Friction { get; set; }
-        public double BaseFriction { get; set; }
 
         public PhysicalObject(string sprite, double x, double y, double angle = 0, double maxSpeed = 10, double maxAccel = 10, double mass = 150, double friction = 1)
             : base(sprite, x, y, angle)
@@ -21,7 +20,6 @@ namespace BattleOfTanks
             _accel = SplashKit.VectorTo(0, 0);
             Mass = mass;
             Friction = friction;
-            BaseFriction = Friction;
         }
 
         public void Update(double delta)

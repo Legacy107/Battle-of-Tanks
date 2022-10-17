@@ -1,7 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
-
-namespace BattleOfTanks
+﻿namespace BattleOfTanks
 {
     public class SlowEffect: EffectCommand
     {
