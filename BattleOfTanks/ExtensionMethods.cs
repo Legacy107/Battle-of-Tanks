@@ -2,7 +2,7 @@
 using System.IO;
 using SplashKitSDK;
 
-namespace ShapeDrawer
+namespace BattleOfTanks
 {
     public static class ExtensionMethods
     {

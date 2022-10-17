@@ -9,6 +9,7 @@
         public static int TILE_SIZE = 28;
         public static int MAP_WIDTH = 29;
         public static string DEFAULT_LEVEL = "level2.txt";
+        public static double SHOOT_COOLDOWN = 0.2;
     }
 }
 
