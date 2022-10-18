@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using ShapeDrawer;
 using SplashKitSDK;
 
 namespace BattleOfTanks
@@ -13,6 +11,7 @@ namespace BattleOfTanks
         private List<IMapTile> _tiles;
         private Point2D _playerSpawn;
         private List<Point2D> _enemySpawns;
+        private Base _base;
 
         public Map()
             : this("./levelData/" + GameConfig.DEFAULT_LEVEL)
@@ -21,6 +20,8 @@ namespace BattleOfTanks
 
         public Map(string filename)
         {
+            _base = new Base(0, 0);
+
             // Load a 30 x 29 map from a file
             StreamReader reader = new StreamReader(filename);
 
@@ -58,7 +59,9 @@ namespace BattleOfTanks
                     case "Steel":
                         tile = new MetalWall(x, y);
                         break;
-                    case "Bush":
+                    case "Base":
+                        _base = new Base(x, y);
+                        tile = _base;
                         break;
                     default:
                         throw new InvalidDataException(string.Format(
@@ -117,13 +120,22 @@ namespace BattleOfTanks
         }
 
         // Return a random spawnpoint for enemy
-        public Point2D EnemySpawns
+        public Point2D EnemySpawn
         {
             get
             {
+                Random random = new Random();
                 return _enemySpawns[
-                    RandomNumberGenerator.GetInt32(_enemySpawns.Count)
+                    random.Next(_enemySpawns.Count)
                 ];
+            }
+        }
+
+        public Base Base
+        {
+            get
+            {
+                return _base;
             }
         }
     }

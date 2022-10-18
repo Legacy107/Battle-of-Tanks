@@ -5,6 +5,7 @@ tileMap = {
     '¬': 'Steel',
     '«': 'Wall',
     'ª': 'Sand',
+    'ǉ': 'Base',
 }
 
 with open('tilemap-editor.json') as fjson:
@@ -29,4 +30,4 @@ with open('tilemap-editor.json') as fjson:
                     tile_output += (f'{id}\n{tile}\n')
                     tile_count += 1
             
-            f.write(f'380\n660\n1\n30\n30\n{tile_count}\n{tile_output}')
+            f.write(f'380\n660\n2\n30\n30\n740\n30\n{tile_count}\n{tile_output}')

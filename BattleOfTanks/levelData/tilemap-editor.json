@@ -7525,6 +7525,13 @@
                             "tilesetIdx": "0",
                             "tileSymbol": "«",
                             "isFlippedX": false
+                        },
+                        "14-28": {
+                            "x": 4,
+                            "y": 36,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "ǉ",
+                            "isFlippedX": false
                         }
                     },
                     "visible": true,
@@ -9307,6 +9314,13 @@
                             "y": 0,
                             "tilesetIdx": "0",
                             "tileSymbol": "¬",
+                            "isFlippedX": false
+                        },
+                        "14-28": {
+                            "x": 4,
+                            "y": 36,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "ǉ",
                             "isFlippedX": false
                         }
                     },
@@ -11902,6 +11916,13 @@
                             "y": 0,
                             "tilesetIdx": "0",
                             "tileSymbol": "¬",
+                            "isFlippedX": false
+                        },
+                        "14-28": {
+                            "x": 4,
+                            "y": 36,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "ǉ",
                             "isFlippedX": false
                         }
                     },
