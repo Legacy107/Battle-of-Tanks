@@ -226,9 +226,6 @@ namespace BattleOfTanks
                             250
                         );
                         break;
-
-                    default:
-                        break;
                 }
             }
             CleanUp();
