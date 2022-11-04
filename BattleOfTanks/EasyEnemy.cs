@@ -8,6 +8,12 @@ namespace BattleOfTanks
     {
         private const double MOVE_FORCE = 100000;
         private Dictionary<Tank, double> _tankDirections;
+        private const int CHANGE_DIR_CHANCE = 10;
+        private const int RANDOM_TURN_CHANCE = 5;
+        private const int MOVE_CHANCE = 5;
+        private const int SHOOT_CHANCE = 10;
+        private const int TARGET_PLAYER_CHANCE = 5;
+        private const int SPAWN_CHANCE = 10;
 
         public EasyEnemy(int NoEnemy = 2)
             : base(NoEnemy)
@@ -32,12 +38,12 @@ namespace BattleOfTanks
                         random.Next(360)
                     );
 
-                bool changeDir = random.Next(5) == 0;
+                bool changeDir = random.Next(CHANGE_DIR_CHANCE) == 0;
                 if (changeDir)
                 {
-                    bool randomMove = random.Next(5) != 0;
+                    bool randomTurn = random.Next(RANDOM_TURN_CHANCE) != 0;
 
-                    if (randomMove)
+                    if (randomTurn)
                         _tankDirections[tank] = random.Next(360);
                     else
                         _tankDirections[tank] = SplashKit.VectorAngle(
@@ -48,10 +54,17 @@ namespace BattleOfTanks
                         );
                 }
 
+                tank.RotateToPoint(SplashKit.PointOffsetBy(
+                    tank.Location,
+                    SplashKit.VectorFromAngle(
+                        _tankDirections[tank],
+                        MOVE_FORCE
+                    )
+                ));
 
                 bool shouldMove = (
                     SplashKit.VectorMagnitude(tank.Velo) == 0 ||
-                    random.Next(10) != 0
+                    random.Next(MOVE_CHANCE) != 0
                 );
                 if (shouldMove)
                     tank.ApplyForce(SplashKit.VectorFromAngle(
@@ -73,11 +86,11 @@ namespace BattleOfTanks
 
             foreach (Tank tank in tanks)
             {
-                bool shouldShoot = random.Next(5) == 0;
+                bool shouldShoot = random.Next(SHOOT_CHANCE) == 0;
                 if (!shouldShoot)
                     continue;
 
-                bool targetPlayer = random.Next(2) == 0;
+                bool targetPlayer = random.Next(TARGET_PLAYER_CHANCE) == 0;
                 if (targetPlayer)
                     bullets.AddRange(tank.Shoot(playerTank.Location));
                 else
@@ -92,13 +105,13 @@ namespace BattleOfTanks
             Random random = new Random();
 
             bool shouldSpawnEnemy = NoEnemy > 0 && (
-                tanks.Count == 0 || random.Next(10) == 0
+                tanks.Count == 0 || random.Next(SPAWN_CHANCE) == 0
             );
 
             if (!shouldSpawnEnemy)
                 return;
 
-            tanks.Add(new Tank(spawnPoint));
+            tanks.Add(new Tank(spawnPoint, "TankRed"));
             NoEnemy -= 1;
         }
 

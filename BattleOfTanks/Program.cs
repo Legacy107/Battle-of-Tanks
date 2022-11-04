@@ -7,6 +7,7 @@ namespace BattleOfTanks
         public static void LoadResources()
         {
             SplashKit.LoadBitmap("Tank", "assets/tank_green42.png");
+            SplashKit.LoadBitmap("TankRed", "assets/tank_red.png");
             SplashKit.LoadBitmap("Bullet", "assets/bulletDark2_outline.png");
             SplashKit.LoadBitmap("Wall", "assets/crateWood.png");
             SplashKit.LoadBitmap("Sand", "assets/tileSand1.png");

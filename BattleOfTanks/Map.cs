@@ -14,7 +14,7 @@ namespace BattleOfTanks
         private Base _base;
 
         public Map()
-            : this("./levelData/" + GameConfig.DEFAULT_LEVEL)
+            : this(GameConfig.LEVELS[0])
         {
         }
 

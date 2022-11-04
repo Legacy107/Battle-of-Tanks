@@ -8,8 +8,12 @@
         public static double EPS { get; } = 0.00001;
         public static int TILE_SIZE = 28;
         public static int MAP_WIDTH = 29;
-        public static string DEFAULT_LEVEL = "level2.txt";
-        public static double SHOOT_COOLDOWN = 0.2;
+        public static string[] LEVELS = new string[]
+        {
+            "./levelData/level1.txt",
+            "./levelData/level2.txt"
+        };
+        public static double SHOOT_COOLDOWN = 0.3;
     }
 }
 

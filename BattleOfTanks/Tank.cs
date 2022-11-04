@@ -10,13 +10,26 @@ namespace BattleOfTanks
         private double _health;
         public double Shield { get; set; }
 
-        public Tank(Point2D point, double health = 100, double shield = 0)
-            : this(point.X, point.Y, health, shield)
+        public Tank
+        (
+            Point2D point,
+            string sprite = "Tank",
+            double health = 100,
+            double shield = 0
+        )
+            : this(point.X, point.Y, sprite, health, shield)
         {
         }
 
-        public Tank(double x, double y, double health = 100, double shield = 0)
-            : base("Tank", x, y, 0, 80, 50, 200)
+        public Tank
+        (
+            double x,
+            double y,
+            string sprite = "Tank",
+            double health = 100,
+            double shield = 0
+        )
+            : base(sprite, x, y, 0, 80, 50, 200)
         {
             Weapon = new Cannon();
             _health = health;

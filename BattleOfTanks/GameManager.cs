@@ -10,10 +10,12 @@ namespace BattleOfTanks
         private Window _window;
         private const string _clock = "game clock";
         private double _prevTime; // for calculating delta time
+        private const double MOVE_FORCE = 10000;
         private Tank _playerTank;
         private List<Tank> _enemyTanks;
         private List<Bullet> _bullets;
         private Map _map;
+        private int _level = 0;
         private GameState _state;
         private Enemy _enemy;
         private double _playerShootCd;
@@ -21,7 +23,9 @@ namespace BattleOfTanks
         private List<IObserver> _observers;
         private int _lives;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public GameManager(Window window)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             _observers = new List<IObserver>();
 
@@ -32,21 +36,30 @@ namespace BattleOfTanks
             SplashKit.StartTimer(_clock);
             _prevTime = 0;
 
-            _map = new Map();
+            _level = 0;
+            _bullets = new List<Bullet>();
+            _enemyTanks = new List<Tank>();
+            Init();
+        }
+
+        public void Init()
+        {
+            _observers.Clear();
+
+            _map = new Map(GameConfig.LEVELS[_level]);
             _map.Base.RegisterObserver(this);
 
             _playerTank = new Tank(_map.PlayerSpawn.X, _map.PlayerSpawn.Y);
             _lives = 3;
 
-            _bullets = new List<Bullet>();
+            _bullets.Clear();
+            _enemyTanks.Clear();
 
             _enemy = new EasyEnemy();
-            _enemyTanks = new List<Tank>();
+            RegisterObserver(_enemy);
 
             _playerShootCd = 0;
             _enemyShootCd = 0;
-
-            RegisterObserver(_enemy);
         }
 
         // return true on exit command
@@ -63,20 +76,11 @@ namespace BattleOfTanks
 
         public void HandleInputGame(double delta)
         {
-            const double moveForce = 10000;
-            if (SplashKit.KeyDown(KeyCode.DownKey))
-                _playerTank.ApplyForce(SplashKit.VectorTo(0, moveForce));
-            if (SplashKit.KeyDown(KeyCode.UpKey))
-                _playerTank.ApplyForce(SplashKit.VectorTo(0, -moveForce));
-            if (SplashKit.KeyDown(KeyCode.LeftKey))
-                _playerTank.ApplyForce(SplashKit.VectorTo(-moveForce, 0));
-            if (SplashKit.KeyDown(KeyCode.RightKey))
-                _playerTank.ApplyForce(SplashKit.VectorTo(moveForce, 0));
 
             if (SplashKit.KeyDown(KeyCode.WKey))
-                _playerTank.MoveForward(moveForce);
+                _playerTank.MoveForward(MOVE_FORCE);
             if (SplashKit.KeyDown(KeyCode.SKey))
-                _playerTank.MoveBackward(moveForce);
+                _playerTank.MoveBackward(MOVE_FORCE);
 
             if (
                 _playerShootCd <= 0 &&
@@ -176,10 +180,6 @@ namespace BattleOfTanks
             SplashKit.RefreshScreen(60);
         }
 
-        public void ChangeLevel()
-        {
-        }
-
         public void MainLoop()
         {
             while (true)
@@ -225,6 +225,7 @@ namespace BattleOfTanks
                             (GameConfig.WINDOW_WIDTH - SplashKit.TextWidth("You Win", "defaultFont", 40)) / 2.0,
                             250
                         );
+                        SplashKit.RefreshScreen(60);
                         break;
                 }
             }
@@ -243,6 +244,14 @@ namespace BattleOfTanks
 
         public void HandleWin()
         {
+            _level += 1;
+            // Switch to next level and reset the game
+            if (_level < GameConfig.LEVELS.Count())
+            {
+                Init();
+                return;
+            }
+
             _state = GameState.WIN;
             Console.WriteLine("You win");
         }

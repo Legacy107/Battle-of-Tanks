@@ -7,7 +7,7 @@ namespace BattleOfTanks
         private Vector2D _velo;
         private Vector2D _accel;
         public double MaxSpeed { get; set; }
-        public double _maxAccel;
+        private double _maxAccel;
         public double Mass { get; set; }
         public double Friction { get; set; }
 

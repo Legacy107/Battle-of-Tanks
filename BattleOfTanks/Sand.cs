@@ -2,13 +2,13 @@
 {
     public class Sand: Area, IMapTile
     {
-        private EffectBuilder effectBuilder;
+        private EffectBuilder _effectBuilder;
 
         public Sand(double x, double y)
             : base("Sand", x, y, 0)
         {
-            effectBuilder = new SlowEffectBuilder();
-            effectBuilder.AddScalar(2);
+            _effectBuilder = new SlowEffectBuilder();
+            _effectBuilder.AddScalar(2);
         }
 
         public override bool IsInside(GameObject obj)
@@ -17,9 +17,9 @@
 
             if (isInside && obj is Tank)
             {
-                effectBuilder.AddSubject(obj);
+                _effectBuilder.AddSubject(obj);
                 CommandExecutor.Instance.AddCommand(
-                    effectBuilder.GetEffectCommand()
+                    _effectBuilder.GetEffectCommand()
                 );
             }
 
