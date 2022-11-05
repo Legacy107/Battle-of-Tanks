@@ -4,12 +4,13 @@
     {
         public double Scalar { get; set; }
 
-        public void AddScalar(double scalar)
+        public EffectBuilder AddScalar(double scalar)
         {
             Scalar = scalar;
+            return this;
         }
 
-        public abstract void AddSubject(GameObject subject);
+        public abstract EffectBuilder AddSubject(GameObject subject);
 
         public abstract EffectCommand GetEffectCommand();
     }

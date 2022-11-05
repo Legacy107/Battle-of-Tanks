@@ -5,26 +5,25 @@ namespace BattleOfTanks
 {
     public class Cannon: Weapon
     {
-        public Cannon(double damage)
-            : base(damage)
+        public Cannon(List<EffectBuilder> effectBuilders)
+            : base(effectBuilders)
         {
         }
 
         public Cannon()
-            : base(20)
+            : base(new List<EffectBuilder> {
+                new DamageEffectBuilder().AddScalar(20)
+            })
         {
         }
 
         public override List<Bullet> CreateBullet()
         {
-            DamageEffectBuilder damageEffectBuilder = new DamageEffectBuilder();
-            damageEffectBuilder.AddScalar(Damage);
-
             return new List<Bullet>
             {
                 new Bullet
                 (
-                    new List<EffectBuilder> { damageEffectBuilder },
+                    EffectBuilders,
                     28.25,
                     -6
                 )

@@ -5,11 +5,11 @@ namespace BattleOfTanks
 {
     public abstract class Weapon
     {
-        public double Damage { get; set; }
+        public List<EffectBuilder> EffectBuilders { get; set; }
 
-        public Weapon(double damage)
+        public Weapon(List<EffectBuilder> effectBuilders)
         {
-            Damage = damage;
+            EffectBuilders = effectBuilders;
         }
 
         public List<Bullet> Shoot(Point2D anchor, Vector2D direction)

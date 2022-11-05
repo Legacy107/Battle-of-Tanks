@@ -7,8 +7,7 @@
         public Sand(double x, double y)
             : base("Sand", x, y, 0)
         {
-            _effectBuilder = new SlowEffectBuilder();
-            _effectBuilder.AddScalar(2);
+            _effectBuilder = new SlowEffectBuilder().AddScalar(2);
         }
 
         public override bool IsInside(GameObject obj)

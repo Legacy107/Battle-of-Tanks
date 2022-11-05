@@ -4,9 +4,10 @@
     {
         private ICanTakeDamage? _subject;
 
-        public override void AddSubject(GameObject subject)
+        public override EffectBuilder AddSubject(GameObject subject)
         {
             _subject = subject as ICanTakeDamage;
+            return this;
         }
 
         public override EffectCommand GetEffectCommand()
