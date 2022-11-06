@@ -1,6 +1,6 @@
 # diagram files
 *.puml
-*.png
+out/
 *.xmi
 *.vdx
 *.vpp
