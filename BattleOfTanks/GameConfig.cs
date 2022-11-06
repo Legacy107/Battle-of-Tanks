@@ -11,7 +11,7 @@
         public static string[] LEVELS = new string[]
         {
             "./levelData/level1.txt",
-            "./levelData/level2.txt"
+            "./levelData/level2.txt",
         };
         public static double SHOOT_COOLDOWN = 0.3;
     }

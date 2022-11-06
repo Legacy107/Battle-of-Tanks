@@ -12,6 +12,7 @@ namespace BattleOfTanks
         private Point2D _playerSpawn;
         private List<Point2D> _enemySpawns;
         private Base _base;
+        private string? _difficulty = "";
 
         public Map()
             : this(GameConfig.LEVELS[0])
@@ -27,6 +28,11 @@ namespace BattleOfTanks
 
             // Read spawnpoints for player and enemy
             _playerSpawn = reader.ReadPoint2D();
+
+            // Read difficulty and spawnpoints
+            _difficulty = reader.ReadLine();
+            if (_difficulty == null)
+                throw new InvalidDataException("Unexpected EOF");
 
             int enemySpawnCount = reader.ReadInteger();
             _enemySpawns = new List<Point2D>();
@@ -44,22 +50,30 @@ namespace BattleOfTanks
                 // index of a tile starting from top left
                 int idx = reader.ReadInteger();
                 kind = reader.ReadLine();
+                if (kind == null)
+                    throw new InvalidDataException("Unexpected EOF");
+
                 Point2D coord = GetCoordFromIdx(idx);
                 double x = coord.X;
                 double y = coord.Y;
 
-                switch (kind)
+                RandomCannonFactory cannonFactory = new RandomCannonFactory();
+
+                switch (kind.ToLower())
                 {
-                    case "Wall":
+                    case "wall":
                         tile = new Wall(x, y);
                         break;
-                    case "Sand":
+                    case "sand":
                         tile = new Sand(x, y);
                         break;
-                    case "Steel":
+                    case "steel":
                         tile = new MetalWall(x, y);
                         break;
-                    case "Base":
+                    case "upgrade":
+                        tile = new Upgrade(x, y, cannonFactory);
+                        break;
+                    case "base":
                         _base = new Base(x, y);
                         tile = _base;
                         break;
@@ -136,6 +150,16 @@ namespace BattleOfTanks
             get
             {
                 return _base;
+            }
+        }
+
+        public string Difficulty
+        {
+            get
+            {
+                if (_difficulty is null)
+                    return "";
+                return _difficulty;
             }
         }
     }

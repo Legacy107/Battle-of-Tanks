@@ -1,11 +1,12 @@
 380
 660
+Hard
 2
 30
 30
 740
 30
-358
+363
 841
 Steel
 842
@@ -722,3 +723,13 @@ Wall
 Steel
 826
 Base
+527
+Upgrade
+177
+Upgrade
+196
+Upgrade
+358
+Upgrade
+570
+Upgrade

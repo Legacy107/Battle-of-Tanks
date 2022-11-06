@@ -28,6 +28,11 @@ namespace BattleOfTanks
             _commands.Add(newCommand);
         }
 
+        public void Clear()
+        {
+            _commands.Clear();
+        }
+
         public void Execute(double delta)
         {
             // Execute in the order of insertion

@@ -12,7 +12,9 @@ namespace BattleOfTanks
             SplashKit.LoadBitmap("Wall", "assets/crateWood.png");
             SplashKit.LoadBitmap("Sand", "assets/tileSand1.png");
             SplashKit.LoadBitmap("Steel", "assets/crateMetal.png");
+            SplashKit.LoadBitmap("Upgrade", "assets/upgrade.png");
             SplashKit.LoadBitmap("Base", "assets/base.png");
+            SplashKit.LoadBitmap("Heart", "assets/heart.png");
             SplashKit.LoadFont("defaultFont", "assets/FredokaOne-Regular.ttf");
         }
 

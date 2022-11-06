@@ -1,13 +1,13 @@
 ﻿namespace BattleOfTanks
 {
-    public class Sand: Area, IMapTile
+    public class Upgrade: Area, IMapTile
     {
-        private EffectBuilder _effectBuilder;
+        private IRandomWeaponFactory _weaponFactory;
 
-        public Sand(double x, double y)
-            : base("Sand", x, y, 0)
+        public Upgrade(double x, double y, IRandomWeaponFactory weaponFactory)
+            : base("Upgrade", x, y, 0)
         {
-            _effectBuilder = new SlowEffectBuilder().AddScalar(2);
+            _weaponFactory = weaponFactory;
         }
 
         public override bool IsInside(GameObject obj)
@@ -16,10 +16,8 @@
 
             if (isInside && obj is Tank tank)
             {
-                _effectBuilder.AddSubject(tank);
-                CommandExecutor.Instance.AddCommand(
-                    _effectBuilder.GetEffectCommand()
-                );
+                tank.Weapon = _weaponFactory.GetWeapon();
+                NeedRemoval = true;
             }
 
             return isInside;

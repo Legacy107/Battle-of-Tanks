@@ -25,7 +25,7 @@ namespace BattleOfTanks
             RotationAngle = angle;
         }
 
-        public void Draw(Window window)
+        public virtual void Draw(Window window)
         {
             if (GameConfig.DEBUG)
                 SplashKit.DrawRectangle(Color.Red, _boundingBox);

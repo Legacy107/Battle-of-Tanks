@@ -1,3 +1,10 @@
+# diagram files
+*.puml
+*.png
+*.xmi
+*.vdx
+*.vpp
+
 # globs
 Makefile.in
 *.userprefs

@@ -1,11 +1,12 @@
 380
 660
+Easy
 2
 30
 30
 740
 30
-242
+246
 841
 Steel
 842
@@ -490,3 +491,11 @@ Steel
 Steel
 826
 Base
+647
+Upgrade
+657
+Upgrade
+212
+Upgrade
+222
+Upgrade

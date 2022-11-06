@@ -6,8 +6,11 @@ namespace BattleOfTanks
 {
     public class Tank: PhysicalObject, ICanTakeDamage
     {
+        private const int HEALTH_BAR_WIDTH = 42;
+        private const int HEALTH_BAR_HEIGHT = 10;
         public Weapon Weapon { get; set; }
         private double _health;
+        private double _maxHealth;
         public double Shield { get; set; }
 
         public Tank
@@ -33,6 +36,7 @@ namespace BattleOfTanks
         {
             Weapon = new Cannon();
             _health = health;
+            _maxHealth = health;
             Shield = shield;
         }
 
@@ -67,6 +71,29 @@ namespace BattleOfTanks
 
             if (_health == 0)
                 NeedRemoval = true;
+        }
+
+        public override void Draw(Window window)
+        {
+            base.Draw(window);
+            SplashKit.DrawRectangleOnWindow(
+                window,
+                SplashKit.RGBColor(0.25, 0.24, 0.19),
+                SplashKit.RectangleFrom(
+                    BoundingBox.X, BoundingBox.Y - HEALTH_BAR_HEIGHT * 2,
+                    HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT
+                )
+            );
+
+            double innerLength = _health / _maxHealth * (HEALTH_BAR_WIDTH - 4);
+            SplashKit.FillRectangleOnWindow(
+                window,
+                SplashKit.RGBAColor(0.33, 0.56, 0.78, 0.6),
+                SplashKit.RectangleFrom(
+                    BoundingBox.X + 2, BoundingBox.Y - HEALTH_BAR_HEIGHT * 2 + 2,
+                    innerLength, HEALTH_BAR_HEIGHT - 4
+                )
+            );
         }
 
         public double Health

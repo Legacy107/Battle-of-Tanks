@@ -20,7 +20,7 @@ namespace BattleOfTanks
             foreach (Bullet bullet in bullets)
             {
                 // Move bullet to the tip of the weapon
-                bullet.RotationAngle = SplashKit.VectorAngle(direction);
+                bullet.RotationAngle += SplashKit.VectorAngle(direction);
 
                 // Apply transformation to location
                 bullet.Location = SplashKit.MatrixMultiply(

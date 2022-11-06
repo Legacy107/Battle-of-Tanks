@@ -4,18 +4,18 @@ using SplashKitSDK;
 
 namespace BattleOfTanks
 {
-    public class EasyEnemy: Enemy
+    public class HardEnemy: Enemy
     {
-        private const double MOVE_FORCE = 100000;
+        private const double MOVE_FORCE = 200000;
         private Dictionary<Tank, double> _tankDirections;
-        private const int CHANGE_DIR_CHANCE = 10;
-        private const int RANDOM_TURN_CHANCE = 8;
+        private const int CHANGE_DIR_CHANCE = 25;
+        private const int RANDOM_TURN_CHANCE = 5;
         private const int MOVE_CHANCE = 5;
         private const int SHOOT_CHANCE = 10;
         private const int TARGET_PLAYER_CHANCE = 5;
-        private const int SPAWN_CHANCE = 10;
+        private const int SPAWN_CHANCE = 50;
 
-        public EasyEnemy(int NoEnemy = 2)
+        public HardEnemy(int NoEnemy = 5)
             : base(NoEnemy)
         {
             _tankDirections = new Dictionary<Tank, double>();
@@ -38,10 +38,13 @@ namespace BattleOfTanks
                         random.Next(360)
                     );
 
-                bool changeDir = random.Next(CHANGE_DIR_CHANCE) == 0;
+                bool stuck = SplashKit.VectorMagnitude(tank.Velo) == 0;
+                bool changeDir = stuck || random.Next(CHANGE_DIR_CHANCE) == 0;
                 if (changeDir)
                 {
-                    bool randomTurn = random.Next(RANDOM_TURN_CHANCE) != 0;
+                    bool randomTurn = (
+                        stuck || random.Next(RANDOM_TURN_CHANCE) < 3
+                    );
 
                     if (randomTurn)
                         _tankDirections[tank] = random.Next(360);
@@ -109,7 +112,8 @@ namespace BattleOfTanks
             Random random = new Random();
 
             bool shouldSpawnEnemy = NoEnemy > 0 && (
-                tanks.Count == 0 || random.Next(SPAWN_CHANCE) == 0
+                tanks.Count == 0 ||
+                random.Next(SPAWN_CHANCE * (int)(Math.Pow(3, tanks.Count))) == 0
             );
 
             if (!shouldSpawnEnemy)

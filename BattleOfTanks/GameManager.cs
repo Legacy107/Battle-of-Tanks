@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using SplashKitSDK;
 
@@ -23,6 +24,7 @@ namespace BattleOfTanks
         private List<IObserver> _observers;
         private int _lives;
 
+        // Disable since Init() is part of the constructor
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public GameManager(Window window)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -44,6 +46,7 @@ namespace BattleOfTanks
 
         public void Init()
         {
+            CommandExecutor.Instance.Clear();
             _observers.Clear();
 
             _map = new Map(GameConfig.LEVELS[_level]);
@@ -55,7 +58,20 @@ namespace BattleOfTanks
             _bullets.Clear();
             _enemyTanks.Clear();
 
-            _enemy = new EasyEnemy();
+            switch (_map.Difficulty.ToLower())
+            {
+                case "easy":
+                    _enemy = new EasyEnemy();
+                    break;
+                case "hard":
+                    _enemy = new HardEnemy();
+                    break;
+                default:
+                    throw new InvalidDataException(string.Format(
+                        "Unknown difficulty",
+                        _map.Difficulty
+                    ));
+            }
             RegisterObserver(_enemy);
 
             _playerShootCd = 0;
@@ -76,7 +92,10 @@ namespace BattleOfTanks
 
         public void HandleInputGame(double delta)
         {
-
+            if (SplashKit.KeyTyped(KeyCode.Num1Key))
+                _playerTank.Weapon = new Cannon();
+            if (SplashKit.KeyTyped(KeyCode.Num2Key))
+                _playerTank.Weapon = new DualCannon();
             if (SplashKit.KeyDown(KeyCode.WKey))
                 _playerTank.MoveForward(MOVE_FORCE);
             if (SplashKit.KeyDown(KeyCode.SKey))
@@ -168,6 +187,8 @@ namespace BattleOfTanks
             foreach (Bullet bullet in _bullets)
                 bullet.Draw(_window);
 
+            DrawHearts();
+
             if (GameConfig.DEBUG)
             {
                 SplashKit.DrawText("Speed: " + SplashKit.VectorMagnitude(_playerTank.Velo), Color.Black, 30, GameConfig.WINDOW_HEIGHT - 80);
@@ -177,6 +198,32 @@ namespace BattleOfTanks
                 SplashKit.DrawText("Health: " + _playerTank.Health, Color.Black, 30, GameConfig.WINDOW_HEIGHT - 40);
             }
 
+            SplashKit.RefreshScreen(60);
+        }
+
+        public void DrawHearts()
+        {
+            int x = GameConfig.WINDOW_WIDTH - 2 * GameConfig.TILE_SIZE;
+            int y = GameConfig.WINDOW_HEIGHT - 2 * GameConfig.TILE_SIZE;
+            for (int i = 0; i < _lives; i++)
+            {
+                SplashKit.DrawBitmapOnWindow(_window, SplashKit.BitmapNamed("Heart"), x, y);
+                x -= GameConfig.TILE_SIZE;
+            }
+        }
+
+        public void DrawEnding(string message)
+        {
+            SplashKit.DrawText(
+                message,
+                Color.Black,
+                "defaultFont",
+                40,
+                (GameConfig.WINDOW_WIDTH - SplashKit.TextWidth(
+                    message, "defaultFont", 40
+                )) / 2.0,
+                250
+            );
             SplashKit.RefreshScreen(60);
         }
 
@@ -205,35 +252,14 @@ namespace BattleOfTanks
                         break;
 
                     case GameState.LOSE:
-                        SplashKit.DrawText(
-                            "You Lose",
-                            Color.Black,
-                            "defaultFont",
-                            40,
-                            (GameConfig.WINDOW_WIDTH - SplashKit.TextWidth("You Lose", "defaultFont", 40)) / 2.0,
-                            250
-                        );
-                        SplashKit.RefreshScreen(60);
+                        DrawEnding("You Lose");
                         break;
 
                     case GameState.WIN:
-                        SplashKit.DrawText(
-                            "You Win",
-                            Color.Black,
-                            "defaultFont",
-                            40,
-                            (GameConfig.WINDOW_WIDTH - SplashKit.TextWidth("You Win", "defaultFont", 40)) / 2.0,
-                            250
-                        );
-                        SplashKit.RefreshScreen(60);
+                        DrawEnding("You Win");
                         break;
                 }
             }
-            CleanUp();
-        }
-
-        public void CleanUp()
-        {
         }
 
         public void HandleLose()
@@ -274,6 +300,7 @@ namespace BattleOfTanks
                 if (tank.NeedRemoval)
                     removedTanks.Add(tank);
 
+            // Notify enemy of removed tanks
             foreach (IObserver observer in _observers)
                 observer.ObserverUpdate(removedTanks);
         }

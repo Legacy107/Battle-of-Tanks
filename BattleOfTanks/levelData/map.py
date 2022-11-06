@@ -6,12 +6,14 @@ tileMap = {
     '«': 'Wall',
     'ª': 'Sand',
     'ǉ': 'Base',
+    'Ѓ': 'Upgrade',
 }
 
 with open('tilemap-editor.json') as fjson:
     data = json.load(fjson)
     for i in range(len(data['maps'])):
         tiles = data['maps'][f'Map{i}']['layers'][0]['tiles']
+        difficulty = data['maps'][f'Map{i}']['name'].split('-')[0]
 
         with open(f'level{i}.txt', 'w') as f:
             tile_output = ''
@@ -30,4 +32,4 @@ with open('tilemap-editor.json') as fjson:
                     tile_output += (f'{id}\n{tile}\n')
                     tile_count += 1
             
-            f.write(f'380\n660\n2\n30\n30\n740\n30\n{tile_count}\n{tile_output}')
+            f.write(f'380\n660\n{difficulty}\n2\n30\n30\n740\n30\n{tile_count}\n{tile_output}')

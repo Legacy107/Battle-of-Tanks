@@ -7554,7 +7554,7 @@
                     "opacity": 1
                 }
             ],
-            "name": "Map0",
+            "name": "Easy-Map0",
             "mapWidth": 29,
             "mapHeight": 30,
             "tileSize": 32,
@@ -9322,6 +9322,34 @@
                             "tilesetIdx": "0",
                             "tileSymbol": "ǉ",
                             "isFlippedX": false
+                        },
+                        "9-22": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
+                        },
+                        "19-22": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
+                        },
+                        "9-7": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
+                        },
+                        "19-7": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
                         }
                     },
                     "visible": true,
@@ -9344,7 +9372,7 @@
                     "opacity": 1
                 }
             ],
-            "name": "Map1",
+            "name": "Easy-Map1",
             "mapWidth": 29,
             "mapHeight": 30,
             "tileSize": 32,
@@ -11924,6 +11952,41 @@
                             "tilesetIdx": "0",
                             "tileSymbol": "ǉ",
                             "isFlippedX": false
+                        },
+                        "5-18": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
+                        },
+                        "3-6": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
+                        },
+                        "22-6": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
+                        },
+                        "10-12": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
+                        },
+                        "19-19": {
+                            "x": 6,
+                            "y": 107,
+                            "tilesetIdx": "0",
+                            "tileSymbol": "Ѓ",
+                            "isFlippedX": false
                         }
                     },
                     "visible": true,
@@ -11933,20 +11996,20 @@
                 },
                 {
                     "tiles": {},
-                    "visible": false,
+                    "visible": true,
                     "name": "middle",
                     "animatedTiles": {},
                     "opacity": 1
                 },
                 {
                     "tiles": {},
-                    "visible": false,
+                    "visible": true,
                     "name": "top",
                     "animatedTiles": {},
                     "opacity": 1
                 }
             ],
-            "name": "Map2",
+            "name": "Hard-Map2",
             "mapWidth": 29,
             "mapHeight": 30,
             "tileSize": 32,
