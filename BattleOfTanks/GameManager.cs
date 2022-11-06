@@ -149,6 +149,11 @@ namespace BattleOfTanks
                     bullet.IsCollided(tank);
             }
 
+            foreach (Bullet bullet1 in _bullets)
+                foreach (Bullet bullet2 in _bullets)
+                    if (bullet1 != bullet2)
+                        bullet1.IsCollided(bullet2);
+
             if (_playerTank.NeedRemoval)
             {
                 _lives -= 1;
